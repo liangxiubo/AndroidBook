@@ -1,4 +1,4 @@
-# Summary
+﻿# Summary
 
 * [简介](README.md)
 * [1Android 应用与开发环境](chapter1/README.md)
@@ -107,5 +107,6 @@
     * [17.4GPS导航](chapter17/section4.md)
 * [18综合实例](chapter18/README.md)
     * [18.1电子优惠券系统](chapter18/section1.md)
-* [18.2移动办公系统](chapter18/section2.md)
+
+    * [18.2移动办公系统](chapter18/section2.md)
 
