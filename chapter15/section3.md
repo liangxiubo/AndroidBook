@@ -276,7 +276,7 @@ public class MainActivity extends Activity implements SensorEventListener
           }
      }
 
-     //计算x、y点的其阿婆是否处于水平仪的仪表盘内
+     //计算x、y点的气泡是否处于水平仪的仪表盘内
      private boolean isContain(int x,int y)
      {
          //计算气泡的圆心坐标X、Y
