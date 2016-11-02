@@ -53,7 +53,7 @@ public class MainActivity extends Activity
                  //获取绕Z轴转过的角度
                  float degeree=event.values(0);
                  //创建旋转动画（反向转过degree度）
-#####            RotateAnimation ra=new RotateAnimation(currentDegree,-degree,Animation.RELATIVE_TO_SELF,0.5f,Animtion.RELATIVE_TO_SELF,0.5f);
+                 RotateAnimation ra=new RotateAnimation(currentDegree,-degree,Animation.RELATIVE_TO_SELF,0.5f,Animtion.RELATIVE_TO_SELF,0.5f);
                  //设置动画的持续时间
                  ra.setDuration(200);
                  //运行动画
@@ -69,7 +69,7 @@ public class MainActivity extends Activity
      }
  }
 ```
-指南针程度的关键代码就是程序中的粗体字代码，该程序检测到手机绕Z轴转过的角度，也就是手机Y轴与正北方向的夹角，然后让指南针图片反向转过相应的角度即可。
+指南针程序的关键代码就是程序中的创建旋转动画部分，该程序检测到手机绕Z轴转过的角度，也就是手机Y轴与正北方向的夹角，然后让指南针图片反向转过相应的角度即可。
 在真机中调试该程序，运行该程序，即可看到如下图：
 ![](01.png)
 
@@ -151,12 +151,12 @@ public class MyView extends View
          //绘制水平仪仪表盘图片
          canvas.drawBitmap(back,0,0,null);
          //根据气泡坐标绘制气泡
-#####    canvas.drawBitmap(bubble,bubbleX,bubbleY,null);
+         canvas.drawBitmap(bubble,bubbleX,bubbleY,null);
      }
 }
 ```
 
-* 粗体字表示，该自定义View会根据bubbleX、bubbleY动态地绘制气泡的位置，而这个bubbleX、bubbleY就需要根据方向传感器返回的第三个角度、第二个角度来计算。
+* 程序中根据气泡坐标绘制气泡的部分表示，该自定义View会根据bubbleX、bubbleY动态地绘制气泡的位置，而这个bubbleX、bubbleY就需要根据方向传感器返回的第三个角度、第二个角度来计算。
 
 下面是该程序中Activity的代码。 
 
