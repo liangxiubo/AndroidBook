@@ -118,7 +118,7 @@
      ![](1.16.png)
      
      
-* ## **1.4 使用Bundle在Activity之间交换数据
+* ## **1.4 使用Bundle在Activity之间交换数据**
     * 当一个Activity启动另一个Activity时，常常会有一些数据要传递过去，在Android中，需要传递的数据放在对象Intent中
     
     * Intent提供了多个重载的方法来携带额外的数据
