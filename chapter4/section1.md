@@ -23,9 +23,10 @@
     * **例：LaucherActivity的使用（codes\04\4.1\OtherActivity）** 
     
     XML文件代码：
+    ![](1.2.png)
     
-       
     LaunchActivity的一个子类代码：
+    ![](1.3.png)
     
     * 上面的程序中用到了两个Activity。
     1. ExpandableListActivityTest：它是ExpandableListActivity的子类，用于显示一个可展开的列表窗口。
@@ -33,6 +34,7 @@
     * 先看ExpandableListActivityTest，它继承了ExpandableListActivity基类，其使用主要是为该Activity传入一个ExpandableListAdapter对象，ExpandableListActivity将会生成一个显示可展开的列表的窗口。
     * 接下来看一下ExpandableListActivityTest的代码
     ![](1.4.png)
+    ![](1.4副.png)
     
     * 如果我们要建立一个Activity专门用于设置选项参数，可使用便捷的基类：PreferenceActivity。一旦Activity继承了PreferenceActivity，那么该Activity完全不需要自己控制Preferences的读写， PreferenceActivity为我们做好这一切。
     
@@ -49,8 +51,7 @@
       2. 选择创建“XML”，并输入根元素为PreferenceScreen，单机“OK”完成创建。
  ![](1.5.png)
      
-      preferences界面布局文件代码如下：
-      
+    * preferences界面布局文件代码如下：  
     ![](1.8.png)
     * 在定义了参数设置界面布局文件之后，接下来在Activity程序中使用该界面布局文件进行参数设置、保存，步骤如下：
         1. 让Activity继承PreferenceActivity；
@@ -62,8 +63,10 @@
      
 * ## **1.2 配置Activity**
     * Android应用要求所有应用程序组件都必须显示进行配置。
+    
     * 为了在AndroidManifest.xml文件中配置、管理Activity,只要为<application…/>元素添加<activity…/>子元素即可配置Activity。
     ![](1.10.png)
+    
     
 * ## **1.3 启动、关闭Activity**
     * 一个Android应用通常都会包括多个Activity，但只有一个Activity会作为程序的入口，该Activity会在Android应用运行时，自动启动并执行。至于应用中的其他的Activity，通常由入口Activity启动。
@@ -83,7 +86,7 @@
      ![](1.11.png)
      Java代码：
      ![](1.12.png)
-         第二个Activity：
+     第二个Activity：
      XML文件代码：
      ![](1.13.png)
      
@@ -91,6 +94,7 @@
      ![](1.14.png)
      
      运行界面：
+     
      ![](1.15.png)
      
      ![](1.16.png)
@@ -146,7 +150,8 @@
     第一个Activity：
     XML文件代码：
     ![](1.23.png)
-    Java代码：
+    
+    Java代码: 
     ![](1.24.png)
     SelectCityActivity：
     Java代码：
@@ -154,7 +159,9 @@
     ![](1.26.png)
     
     第一个Activity运行后的界面如下：
+    
     ![](1.27.png)
+    
     单击“选择您所在城市”按钮后，系统会启动SelectCityActivity，该活动会显示一个可展开的列表；当Activity获取SelectCityActivity选择城市后，将会把该结果显示在上图所示界面右边的文本框中。
 
     
