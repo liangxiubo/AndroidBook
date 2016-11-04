@@ -163,7 +163,7 @@
       ![](1.22.png)
       
       
-* ## **1.5 启动其他Activity并返回结果
+* ## **1.5 启动其他Activity并返回结果**
     * Activity提供了一个startActivityForResult(Intent intent,int requestCode )方法来启动其他Activity。该方法用于启动指定的Activity，而且期望获取指定Activity返回的结果。
 
     * 为了获取被启动的Activity所返回的结果，当前Activity需要重写onActivityResult(int requestCode,int resultCode,Intent intent)。
