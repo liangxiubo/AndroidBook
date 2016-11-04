@@ -35,7 +35,9 @@
     * 上面的程序中用到了两个Activity。
       1. ExpandableListActivityTest：它是ExpandableListActivity的子类，用于显示一个可展开的列表窗口。
       2. PreferenceActivityTest：它是PreferenceActivity的子类，用于显示一个显示设置选项参数并进行保存的窗口。
+    
     * 先看ExpandableListActivityTest，它继承了ExpandableListActivity基类，其使用主要是为该Activity传入一个ExpandableListAdapter对象，ExpandableListActivity将会生成一个显示可展开的列表的窗口。
+    
     * 接下来看一下ExpandableListActivityTest的代码:
     
     ![](1.4.png)
