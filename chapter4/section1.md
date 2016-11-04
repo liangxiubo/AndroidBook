@@ -20,6 +20,7 @@
     3. 每一个Activity必须在AndroidManifest.XML文件中进行配置;
     4. 为Activity添加必要的控件。
     
+    
     * **例：LaucherActivity的使用（codes\04\4.1\OtherActivity）** 
     
     XML文件代码：
