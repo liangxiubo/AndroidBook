@@ -17,22 +17,25 @@
     建立一个Activity的步骤如下：
     1. 建立Activity需要继承Activity基类，根据不同的需要，有时也需要继承Activity的子类；
     2. 需要复写onCreate()方法(由应用程序的框架调用)；
-    3. 每一个Activity必须在AndroidManifest.XML文件中进行配置
+    3. 每一个Activity必须在AndroidManifest.XML文件中进行配置;
     4. 为Activity添加必要的控件。
     
     * **例：LaucherActivity的使用（codes\04\4.1\OtherActivity）** 
     
     XML文件代码：
+    
     ![](1.2.png)
     
+    
     LaunchActivity的一个子类代码：
+    
     ![](1.3.png)
     
     * 上面的程序中用到了两个Activity。
     1. ExpandableListActivityTest：它是ExpandableListActivity的子类，用于显示一个可展开的列表窗口。
     2. PreferenceActivityTest：它是PreferenceActivity的子类，用于显示一个显示设置选项参数并进行保存的窗口。
     * 先看ExpandableListActivityTest，它继承了ExpandableListActivity基类，其使用主要是为该Activity传入一个ExpandableListAdapter对象，ExpandableListActivity将会生成一个显示可展开的列表的窗口。
-    * 接下来看一下ExpandableListActivityTest的代码
+    * 接下来看一下ExpandableListActivityTest的代码:
     ![](1.4.png)
     ![](1.4副.png)
     
@@ -41,8 +44,10 @@
     * 使用PreferenceActivity与众不同的一点是，它的界面布局不再使用普通的XxxLayout作为根元素，而是使用PreferenceScreen作为根元素，它表明定义一个参数设置的界面布局。
 
     * 本例中PreferenceActivity加载的选项设置列表的布局文件如下：
+    
     ![](1.6.png)
     上面的布局文件中指定使用Prefs1Fragment、Prefs2Fragment两个内部类，需要在PreferenceActivityTest类中定义者两个内部类。下面为PreferenceActivityTest的代码：
+    
     ![](1.7.png)
     上面的Activity中定义了两个PreferenceFragment，需要分别加载preferences.xml、display_prefs两个选项设置的布局文件。
     
@@ -52,7 +57,9 @@
  ![](1.5.png)
      
     * preferences界面布局文件代码如下：  
+    
     ![](1.8.png)
+    
     * 在定义了参数设置界面布局文件之后，接下来在Activity程序中使用该界面布局文件进行参数设置、保存，步骤如下：
         1. 让Activity继承PreferenceActivity；
         2. 在onCreate(Bundle savedInstanceState)方法中调用addPreferencesFromResource(…)方法加载指定的界面布局文件。
@@ -65,6 +72,7 @@
     * Android应用要求所有应用程序组件都必须显示进行配置。
     
     * 为了在AndroidManifest.xml文件中配置、管理Activity,只要为<application…/>元素添加<activity…/>子元素即可配置Activity。
+    
     ![](1.10.png)
     
     
@@ -83,14 +91,19 @@
     
      第一个Activity：
      XML文件代码：
+     
      ![](1.11.png)
      Java代码：
+     
      ![](1.12.png)
+     
      第二个Activity：
      XML文件代码：
+     
      ![](1.13.png)
      
      Java代码：
+     
      ![](1.14.png)
      
      运行界面：
@@ -118,17 +131,24 @@
     
       第一个Activity：
       XML文件代码：
+      
       ![](1.17.png)
+      
       Java代码：
+      
       ![](1.18.png)
       * 上列代码中创建了一个Person对象，Person类只是一个简单的DTO对象，该类实现了java.io.Serialization接口。
       * 上面的程序创建了一个Bundle对象，并调用putSerialization("person",p)将Person对象放入该Bundle中，然后再使用Intent来“携带”这个Bundle，即可将Person对象传入第二个Activity。
       
       ResultActivity：
       XML文件代码：
+      
       ![](1.19.png)
+      
       Java代码：
+      
       ![](1.20.png)
+      
       * 第一个Activity的显示界面如下：
       
       ![](1.21.png)
@@ -149,12 +169,16 @@
 
     第一个Activity：
     XML文件代码：
+    
     ![](1.23.png)
     
     Java代码: 
+    
     ![](1.24.png)
+    
     SelectCityActivity：
     Java代码：
+    
     ![](1.25.png)
     ![](1.26.png)
     
