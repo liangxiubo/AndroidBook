@@ -47,10 +47,11 @@
     * 本例中PreferenceActivity加载的选项设置列表的布局文件如下：
     
     ![](1.6.png)
-    上面的布局文件中指定使用Prefs1Fragment、Prefs2Fragment两个内部类，需要在PreferenceActivityTest类中定义者两个内部类。下面为PreferenceActivityTest的代码：
+    * 上面的布局文件中指定使用Prefs1Fragment、Prefs2Fragment两个内部类，需要在PreferenceActivityTest类中定义者两个内部类。下面为PreferenceActivityTest的代码：
     
     ![](1.7.png)
-    上面的Activity中定义了两个PreferenceFragment，需要分别加载preferences.xml、display_prefs两个选项设置的布局文件。
+    
+    * 上面的Activity中定义了两个PreferenceFragment，需要分别加载preferences.xml、display_prefs两个选项设置的布局文件。
     
     * 建立选项设置的布局文件按如下步骤进行：
       1. 右击Android Studio项目管理面板上的app节点，然后在弹出的右键菜单中单机“New”->“Android resources file”菜单；
