@@ -53,22 +53,19 @@ Google为Android平台开发Web Service客户端提供了ksoap2-android项目，
 1. 登录 http://code.google.com/p/ksoap2-android/站点，该站点有介绍下载ksoap2-android/项目的方法。
 2. 下载ksoap2-android项目的ksoap2-android项目的ksoap2-android-assembly-3.4.0-jar-with-dependencies.jar包。如果读者下载有困难，也可直接使用光盘中codes\13\13.5目录下的该文件。
 3. 将下载到的JAR包添加到Android项目的libs目录下，并通过Project面板选中该JAR包后，通过右键菜单的“add as library”菜单项添加该JAR包，即可在Android Studio左边看到如图13.18所示的项目管理树。  
-
-![](image13.18.png)
-
-为Android项目添加了ksoap2-android包之后，接下来借助于ksoap2-android项目来调用Web Service所暴露的操作。  
+![](image13.18.png)  
+ 为Android项目添加了ksoap2-android包之后，接下来借助于ksoap2-android项目来调用Web Service所暴露的操作。  
 使用ksoap2-android调用Web Service操作的步骤如下。
  1. 创建HttpTransportSE对象，该对象用于调用Web Service操作。
- 2. 创建SoapSerializationEnvelope对象。
- 
+ 2. 创建SoapSerializationEnvelope对象。  
  >####提示
 从名称来看，SoapSerializationEnvelope代表一个SOAP消息封包；但ksoap2-android项目对SoapSerializationEnvelope的处理比较特殊，它是HttpTransportSE调用Web Service时信息的载体——客户端需要传入的参数，需要通过SoapSerializationEnvelope对象的bodyOut属性传给服务器；服务器响应生成的SOAP消息也通过该对象的bodyIn属性来获取。
 
-3. 创建SoapObject对象，创建该对象时需要传入所要调用Web Service的命名空间、Web Service方法名。
-4. 如果有参数需要传给Web Service服务器端，则调用SoapObject对象的addProperty(String name, Object value)方法来设置参数，该方法的name参数指定参数名，value参数指定参数值。
-5. 调用SoapSerializationEnvelope 的setOutputSoapObject()方法，或者直接对bodyOut属性赋值，将前两步创建的SoapObject对象设为调用SoapSerializationEnvelope的传出SOAP消息体。
-6. 调用对象的call()方法，并以SoapSerializationEnvelope作为参数调用远程Web Service。
-7. 调用完成后，访问SoapSerializationEnvelope对象的bodyIn属性，该属性返回一个SoapObject对象，该对象就代表了Web Service的返回消息。解析该SoapObject对象，即可获取调用Web Service的返回值。
+4. 创建SoapObject对象，创建该对象时需要传入所要调用Web Service的命名空间、Web Service方法名。
+5. 如果有参数需要传给Web Service服务器端，则调用SoapObject对象的addProperty(String name, Object value)方法来设置参数，该方法的name参数指定参数名，value参数指定参数值。
+6. 调用SoapSerializationEnvelope 的setOutputSoapObject()方法，或者直接对bodyOut属性赋值，将前两步创建的SoapObject对象设为调用SoapSerializationEnvelope的传出SOAP消息体。
+7. 调用对象的call()方法，并以SoapSerializationEnvelope作为参数调用远程Web Service。
+8. 调用完成后，访问SoapSerializationEnvelope对象的bodyIn属性，该属性返回一个SoapObject对象，该对象就代表了Web Service的返回消息。解析该SoapObject对象，即可获取调用Web Service的返回值。
 ####实例：调用基于CXF的Web Service
 下面的程序使用CXF开发了一个Web Service，该Web Service对应的WSDL文档如图13.19所示。 
 
