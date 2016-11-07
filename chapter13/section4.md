@@ -81,8 +81,10 @@ public class MainActivity extends Activity
 >&lt;users-permission android:name="android.permission.INTERNET"/>
 
 运行该程序，在文本框中输入想访问的站点，并单击手机的“搜索”按钮，将可以看到如图13.11所示的输出。
-![]()
-正如从图13.11所看到的，使用WebView开发浏览器十分简单，如果读者愿意多花时间对该程序界面进行美化，并为程序提供前进、后退、刷新等按钮，即可开发出一个实用的浏览器来代替Android系统自带的浏览器。
+
+正如从图13.11所看到的，使用WebView开发浏览器十分简单，如果读者愿意多花时间对该程序界面进行美化，并为程序提供前进、后退、刷新等按钮，即可开发出一个实用的浏览器来代替Android系统自带的浏览器。  
+
+![](image13.11.png)
 
 ####提示
 
@@ -136,6 +138,8 @@ public class MainActivity extends Activity
 ```
 
 上面程序中的粗体字代码就是该程序的关键，这行代码负责加载指定的HTML页面，并将它显示出来。运行该程序，将可以看到如图13.12的输出。
+
+![](image13.12.png)
 
 ##13.4.3 使用WebView中的JavaScript调用Android方法
 
@@ -246,5 +250,8 @@ public class MyObject
 
 如果用户单击第二个按钮，该页面的JavaScript脚本将会通过myObj调用Android的showList()方法，此时将会看到如图13.14所示的对话框。
 
+![](image13.13.png)
+
+![](image13.14.png)
 
 
