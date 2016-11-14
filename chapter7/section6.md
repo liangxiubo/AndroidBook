@@ -257,301 +257,304 @@ int colors = 0xff000000 + red << 16 | green << 8 | blue;
 
 ```
 public class MainActivity extends Activity {
-/** 定义小球的大小的常量 */
-private static final float BALL_SIZE = 50F;
-/** 定义小球从屏幕上放下落到屏幕底端的时间 */
-private static final float FULL_TIME = 1000;
+  /** 定义小球的大小的常量 */
+  private static final float BALL_SIZE = 50F;
+  /** 定义小球从屏幕上放下落到屏幕底端的时间 */
+  private static final float FULL_TIME = 1000;
 
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-super.onCreate(savedInstanceState);
-setContentView(R.layout.activity_main);
-LinearLayout container = (LinearLayout) findViewById(R.id.linear_layout);
-// 设置该窗口显示MyAnimationView组件
-container.addView(new MyAnimationView(this));
-}
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    LinearLayout container = (LinearLayout) findViewById(R.id.linear_layout);
+    // 设置该窗口显示MyAnimationView组件
+    container.addView(new MyAnimationView(this));
+  }
 
-public class MyAnimationView extends View implements AnimatorUpdateListener {
-/** 圆球的数据集 */
-public final ArrayList<ShapeHolder> balls = new ArrayList<ShapeHolder>();
+  public class MyAnimationView extends View implements AnimatorUpdateListener {
+    /** 圆球的数据集 */
+    public final ArrayList<ShapeHolder> balls = new ArrayList<ShapeHolder>();
 
-public MyAnimationView(Context context) {
-this(context, null);
-}
+    public MyAnimationView(Context context) {
+      this(context, null);
+    }
 
-public MyAnimationView(Context context, AttributeSet attrs) {
-this(context, attrs, 0);
-}
+    public MyAnimationView(Context context, AttributeSet attrs) {
+      this(context, attrs, 0);
+    }
 
-public MyAnimationView(Context context, AttributeSet attrs,
-int defStyleAttr) {
-super(context, attrs, defStyleAttr);
-setBackgroundColor(Color.WHITE);
+    public MyAnimationView(Context context, AttributeSet attrs,
+        int defStyleAttr) {
+      super(context, attrs, defStyleAttr);
+      setBackgroundColor(Color.WHITE);
+      
+    }
 
-}
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+      // 如果触碰事件不是按下,移动事件
+      if (event.getAction() != MotionEvent.ACTION_DOWN
+          && event.getAction() != MotionEvent.ACTION_MOVE) {
+        return false;
+      }
+      // 在事件发生点添加一个小球(用一个圆形代替)
+      ShapeHolder newBall = addBall(event.getX(), event.getY());
+      // 计算小球下落动画开始时的y坐标
+      float startY = newBall.getY();
+      // 计算小球下落动画结束时的y坐标(落到屏幕最下方,就是屏幕高度减去小球高度)
+      float endY = getHeight() - BALL_SIZE;
+      // 获取屏幕高度
+      float height = getHeight();
+      // 触摸点的y坐标
+      float eventY = event.getY();
+      // 计算动画的持续时间
+      int duration = (int) (FULL_TIME * ((height - eventY) / height));
+      // 定义小球"落下"的动画:让newBall对象的y属性从事件发生点变化到屏幕最下方
+      ValueAnimator fallAnim = ObjectAnimator.ofFloat(newBall, "y",
+          startY, endY);
+      // 设置fallAnim动画的持续时间
+      fallAnim.setDuration(duration);
+      // 设置fallAnim动画的插值方式:加速插值
+      fallAnim.setInterpolator(new AccelerateInterpolator());
+      // 为fallAnim动画添加监听器
+      // 当ValueAnimator的属性值发生改变时,将会激发该监听器的事件监听方法
+      fallAnim.addUpdateListener(this);
+      //-------------------
+      //定义小球"压扁"的动画:该动画控制小球的X坐标"向左移"半个球
+      ValueAnimator squashAnim1 = ObjectAnimator.ofFloat(newBall, "x", newBall.getX(), newBall.getX() - BALL_SIZE / 2);
+      //设置squashAnim1动画的持续时间
+      squashAnim1.setDuration(duration / 4);
+      //设置squashAnim1动画的重复次数
+      squashAnim1.setRepeatCount(1);
+      //设置squashAnim1动画的重复方式
+      squashAnim1.setRepeatMode(ValueAnimator.REVERSE);
+      //设置squashAnim1动画的插值方式:减速插值
+      squashAnim1.setInterpolator(new DecelerateInterpolator());
+      // 当ValueAnimator的属性值发生改变时,将会激发该监听器的事件监听方法
+      squashAnim1.addUpdateListener(this);
+      //定义小球"压扁"的动画:该动画控制小球的宽度加倍
+      ValueAnimator squashAnim2 = ObjectAnimator.ofFloat(newBall, "width", newBall.getWidth(), newBall.getWidth() + BALL_SIZE);
+      //设置squashAnim2动画的持续时间
+      squashAnim2.setDuration(duration / 4);
+      //设置squashAnim2动画的重复次数
+      squashAnim2.setRepeatCount(1);
+      //设置squashAnim2动画的重复方式
+      squashAnim2.setRepeatMode(ValueAnimator.REVERSE);
+      //设置squashAnim2动画的插值方式:减速插值
+      squashAnim2.setInterpolator(new DecelerateInterpolator());
+      // 当ValueAnimator的属性值发生改变时,将会激发该监听器的事件监听方法
+      squashAnim2.addUpdateListener(this);
+      //定义小球"拉伸"的动画:该动画控制小球的Y坐标"向下移"半个球
+      ObjectAnimator stretchAnim1 = ObjectAnimator.ofFloat(newBall, "y", endY, endY + BALL_SIZE / 2);
+      //设置stretchAnim1动画的持续时间
+      stretchAnim1.setDuration(duration / 4);
+      //设置stretchAnim1动画的重复次数
+      stretchAnim1.setRepeatCount(1);
+      //设置stretchAnim1动画的重复方式
+      stretchAnim1.setRepeatMode(ValueAnimator.REVERSE);
+      //设置stretchAnim1动画的插值方式:减速插值
+      stretchAnim1.setInterpolator(new DecelerateInterpolator());
+      // 当ObjectAnimator的属性值发生改变时,将会激发该监听器的事件监听方法
+      stretchAnim1.addUpdateListener(this);
+      //定义小球"拉伸"的动画:该动画控制小球的高度减半
+      ValueAnimator stretchAnim2 = ObjectAnimator.ofFloat(newBall, "height", newBall.getHeight(), newBall.getHeight() - BALL_SIZE / 2);
+      //设置stretchAnim2动画的持续时间
+      stretchAnim2.setDuration(duration / 4);
+      //设置stretchAnim2动画的重复次数
+      stretchAnim2.setRepeatCount(1);
+      //设置stretchAnim2动画的重复方式
+      stretchAnim2.setRepeatMode(ValueAnimator.REVERSE);
+      //设置stretchAnim2动画的插值方式:减速插值
+      stretchAnim2.setInterpolator(new DecelerateInterpolator());
+      // 当ValueAnimator的属性值发生改变时,将会激发该监听器的事件监听方法
+      stretchAnim2.addUpdateListener(this);
+      //定义小球"弹起"的动画
+      ObjectAnimator bounceBackAnim = ObjectAnimator.ofFloat(newBall, "y", endY, startY);
+      //设置bounceBackAnim动画持续时间
+      bounceBackAnim.setDuration(duration);
+      //设置bounceBackAnim动画的插值方式:减速插值
+      bounceBackAnim.setInterpolator(new DecelerateInterpolator());
+      // 当ObjectAnimator的属性值发生改变时,将会激发该监听器的事件监听方法
+      bounceBackAnim.addUpdateListener(this);
+      //使用AnimatorSet按顺序播放"掉落/压扁&拉伸/弹起动画"
+      AnimatorSet bouncer = new AnimatorSet();
+      //定义在squashAnim1动画之前播放fallAnim下落动画
+      bouncer.play(fallAnim).before(squashAnim1);
+      //由于小球在"屏幕"下方弹起时,小球要被压扁
+      //即:宽度加倍.X坐标左移半个球的距离;高度减半,Y坐标下移半个球的距离
+      //因此此处指定播放squashAnim1动画的同时
+      bouncer.play(squashAnim1).with(squashAnim2);
+      bouncer.play(squashAnim1).with(stretchAnim1);
+      bouncer.play(squashAnim1).with(stretchAnim2);
+      //还播放stretchAnim2动画之后,播放bounceBackAnim弹起动画
+      bouncer.play(bounceBackAnim).after(stretchAnim2);
+      //-----------------------------
+      // 定义对newBall对象的alpha属性执行从1到0的动画(即定义渐隐动画)
+      ObjectAnimator fadeAnim = ObjectAnimator.ofFloat(newBall, "alpha",
+          1f, 0f);
+      // 设置动画持续时间
+      fadeAnim.setDuration(250);
+      // 为fadeAnim动画添加监听器
+      fadeAnim.addListener(new AnimatorListener() {
+        // 动画结束时
+        @Override
+        public void onAnimationEnd(Animator animation) {
+          // 动画结束时,将该动画关联的ShapeHolder删除
+          balls.remove(((ObjectAnimator) animation).getTarget());
+        }
 
-@Override
-public boolean onTouchEvent(MotionEvent event) {
-// 如果触碰事件不是按下,移动事件
-if (event.getAction() != MotionEvent.ACTION_DOWN
-&& event.getAction() != MotionEvent.ACTION_MOVE) {
-return false;
-}
-// 在事件发生点添加一个小球(用一个圆形代替)
-ShapeHolder newBall = addBall(event.getX(), event.getY());
-// 计算小球下落动画开始时的y坐标
-float startY = newBall.getY();
-// 计算小球下落动画结束时的y坐标(落到屏幕最下方,就是屏幕高度减去小球高度)
-float endY = getHeight() - BALL_SIZE;
-// 获取屏幕高度
-float height = getHeight();
-// 触摸点的y坐标
-float eventY = event.getY();
-// 计算动画的持续时间
-int duration = (int) (FULL_TIME * ((height - eventY) / height));
-// 定义小球"落下"的动画:让newBall对象的y属性从事件发生点变化到屏幕最下方
-ValueAnimator fallAnim = ObjectAnimator.ofFloat(newBall, "y",
-startY, endY);
-// 设置fallAnim动画的持续时间
-fallAnim.setDuration(duration);
-// 设置fallAnim动画的插值方式:加速插值
-fallAnim.setInterpolator(new AccelerateInterpolator());
-// 为fallAnim动画添加监听器
-// 当ValueAnimator的属性值发生改变时,将会激发该监听器的事件监听方法
-fallAnim.addUpdateListener(this);
-//-------------------
-//定义小球"压扁"的动画:该动画控制小球的X坐标"向左移"半个球
-ValueAnimator squashAnim1 = ObjectAnimator.ofFloat(newBall, "x", newBall.getX(), newBall.getX() - BALL_SIZE / 2);
-//设置squashAnim1动画的持续时间
-squashAnim1.setDuration(duration / 4);
-//设置squashAnim1动画的重复次数
-squashAnim1.setRepeatCount(1);
-//设置squashAnim1动画的重复方式
-squashAnim1.setRepeatMode(ValueAnimator.REVERSE);
-//设置squashAnim1动画的插值方式:减速插值
-squashAnim1.setInterpolator(new DecelerateInterpolator());
-// 当ValueAnimator的属性值发生改变时,将会激发该监听器的事件监听方法
-squashAnim1.addUpdateListener(this);
-//定义小球"压扁"的动画:该动画控制小球的宽度加倍
-ValueAnimator squashAnim2 = ObjectAnimator.ofFloat(newBall, "width", newBall.getWidth(), newBall.getWidth() + BALL_SIZE);
-//设置squashAnim2动画的持续时间
-squashAnim2.setDuration(duration / 4);
-//设置squashAnim2动画的重复次数
-squashAnim2.setRepeatCount(1);
-//设置squashAnim2动画的重复方式
-squashAnim2.setRepeatMode(ValueAnimator.REVERSE);
-//设置squashAnim2动画的插值方式:减速插值
-squashAnim2.setInterpolator(new DecelerateInterpolator());
-// 当ValueAnimator的属性值发生改变时,将会激发该监听器的事件监听方法
-squashAnim2.addUpdateListener(this);
-//定义小球"拉伸"的动画:该动画控制小球的Y坐标"向下移"半个球
-ObjectAnimator stretchAnim1 = ObjectAnimator.ofFloat(newBall, "y", endY, endY + BALL_SIZE / 2);
-//设置stretchAnim1动画的持续时间
-stretchAnim1.setDuration(duration / 4);
-//设置stretchAnim1动画的重复次数
-stretchAnim1.setRepeatCount(1);
-//设置stretchAnim1动画的重复方式
-stretchAnim1.setRepeatMode(ValueAnimator.REVERSE);
-//设置stretchAnim1动画的插值方式:减速插值
-stretchAnim1.setInterpolator(new DecelerateInterpolator());
-// 当ObjectAnimator的属性值发生改变时,将会激发该监听器的事件监听方法
-stretchAnim1.addUpdateListener(this);
-//定义小球"拉伸"的动画:该动画控制小球的高度减半
-ValueAnimator stretchAnim2 = ObjectAnimator.ofFloat(newBall, "height", newBall.getHeight(), newBall.getHeight() - BALL_SIZE / 2);
-//设置stretchAnim2动画的持续时间
-stretchAnim2.setDuration(duration / 4);
-//设置stretchAnim2动画的重复次数
-stretchAnim2.setRepeatCount(1);
-//设置stretchAnim2动画的重复方式
-stretchAnim2.setRepeatMode(ValueAnimator.REVERSE);
-//设置stretchAnim2动画的插值方式:减速插值
-stretchAnim2.setInterpolator(new DecelerateInterpolator());
-// 当ValueAnimator的属性值发生改变时,将会激发该监听器的事件监听方法
-stretchAnim2.addUpdateListener(this);
-//定义小球"弹起"的动画
-ObjectAnimator bounceBackAnim = ObjectAnimator.ofFloat(newBall, "y", endY, startY);
-//设置bounceBackAnim动画持续时间
-bounceBackAnim.setDuration(duration);
-//设置bounceBackAnim动画的插值方式:减速插值
-bounceBackAnim.setInterpolator(new DecelerateInterpolator());
-// 当ObjectAnimator的属性值发生改变时,将会激发该监听器的事件监听方法
-bounceBackAnim.addUpdateListener(this);
-//使用AnimatorSet按顺序播放"掉落/压扁&拉伸/弹起动画"
-AnimatorSet bouncer = new AnimatorSet();
-//定义在squashAnim1动画之前播放fallAnim下落动画
-bouncer.play(fallAnim).before(squashAnim1);
-//由于小球在"屏幕"下方弹起时,小球要被压扁
-//即:宽度加倍.X坐标左移半个球的距离;高度减半,Y坐标下移半个球的距离
-//因此此处指定播放squashAnim1动画的同时
-bouncer.play(squashAnim1).with(squashAnim2);
-bouncer.play(squashAnim1).with(stretchAnim1);
-bouncer.play(squashAnim1).with(stretchAnim2);
-//还播放stretchAnim2动画之后,播放bounceBackAnim弹起动画
-bouncer.play(bounceBackAnim).after(stretchAnim2);
-//-----------------------------
-// 定义对newBall对象的alpha属性执行从1到0的动画(即定义渐隐动画)
-ObjectAnimator fadeAnim = ObjectAnimator.ofFloat(newBall, "alpha",
-1f, 0f);
-// 设置动画持续时间
-fadeAnim.setDuration(250);
-// 为fadeAnim动画添加监听器
-fadeAnim.addListener(new AnimatorListener() {
-// 动画结束时
-@Override
-public void onAnimationEnd(Animator animation) {
-// 动画结束时,将该动画关联的ShapeHolder删除
-balls.remove(((ObjectAnimator) animation).getTarget());
-}
+        @Override
+        public void onAnimationCancel(Animator animation) {
+        }
 
-@Override
-public void onAnimationCancel(Animator animation) {
-}
+        @Override
+        public void onAnimationStart(Animator animation) {
+        }
 
-@Override
-public void onAnimationStart(Animator animation) {
-}
+        @Override
+        public void onAnimationRepeat(Animator animation) {
+        }
+      });
+      // 为fadeAnim动画添加监听器
+      // 当ValueAnimator的属性值发生改变时,将会激发该监听器的事件监听方法
+      fadeAnim.addUpdateListener(this);
+      // 再次定义一个AnimatorSet来组合动画
+      AnimatorSet animatorSet = new AnimatorSet();
+      // 指定在播放fadeAnim动画之前,先播放bouncer动画
+      animatorSet.play(bouncer).before(fadeAnim);
+      // 开始播放动画
+      animatorSet.start();
+      return true;
+    }
 
-@Override
-public void onAnimationRepeat(Animator animation) {
-}
-});
-// 为fadeAnim动画添加监听器
-// 当ValueAnimator的属性值发生改变时,将会激发该监听器的事件监听方法
-fadeAnim.addUpdateListener(this);
-// 再次定义一个AnimatorSet来组合动画
-AnimatorSet animatorSet = new AnimatorSet();
-// 指定在播放fadeAnim动画之前,先播放bouncer动画
-animatorSet.play(bouncer).before(fadeAnim);
-// 开始播放动画
-animatorSet.start();
-return true;
-}
+    private ShapeHolder addBall(float x, float y) {
+      // 创建一个圆
+      OvalShape ovalShape = new OvalShape();
+      // 设置该椭圆的宽高
+      ovalShape.resize(BALL_SIZE, BALL_SIZE);
+      // 将圆包装成Drawable对象
+      ShapeDrawable drawable = new ShapeDrawable(ovalShape);
+      // 建立一个ShapeHolder对象
+      ShapeHolder holder = new ShapeHolder(drawable);
+      // 设置ShapeHolder的x,y坐标
+      holder.setX(x);
+      holder.setY(y);
 
-private ShapeHolder addBall(float x, float y) {
-// 创建一个圆
-OvalShape ovalShape = new OvalShape();
-// 设置该椭圆的宽高
-ovalShape.resize(BALL_SIZE, BALL_SIZE);
-// 将圆包装成Drawable对象
-ShapeDrawable drawable = new ShapeDrawable(ovalShape);
-// 建立一个ShapeHolder对象
-ShapeHolder holder = new ShapeHolder(drawable);
-// 设置ShapeHolder的x,y坐标
-holder.setX(x);
-holder.setY(y);
+      int red = (int) (Math.random() * 255);
+      int green = (int) (Math.random() * 255);
+      int blue = (int) (Math.random() * 255);
+      // 将red, green, blue三个随机数合成ARGB颜色
+      int colors = 0xff000000 + red << 16 | green << 8 | blue;
+      // 获取drawable上关联的画笔
+      Paint paint = drawable.getPaint();
+      // 将red, green, blue三个随机数除以4得到商值组合成ARGB颜色
+      int darkColors = 0xff000000 | red / 4 << 16 | green / 4 << 8 | blue
+          / 4;
+      // 创建圆形渐变
+      RadialGradient gradient = new RadialGradient(37.5f, 12.5f,
+          BALL_SIZE, colors, darkColors, Shader.TileMode.CLAMP);
+      paint.setShader(gradient);
+      // 为ShapeHolder设置Paint画笔
+      holder.setPaint(paint);
+      balls.add(holder);
+      return holder;
+    }
 
-int red = (int) (Math.random() * 255);
-int green = (int) (Math.random() * 255);
-int blue = (int) (Math.random() * 255);
-// 将red, green, blue三个随机数合成ARGB颜色
-int colors = 0xff000000 + red << 16 | green << 8 | blue;
-// 获取drawable上关联的画笔
-Paint paint = drawable.getPaint();
-// 将red, green, blue三个随机数除以4得到商值组合成ARGB颜色
-int darkColors = 0xff000000 | red / 4 << 16 | green / 4 << 8 | blue
-/ 4;
-// 创建圆形渐变
-RadialGradient gradient = new RadialGradient(37.5f, 12.5f,
-BALL_SIZE, colors, darkColors, Shader.TileMode.CLAMP);
-paint.setShader(gradient);
-// 为ShapeHolder设置Paint画笔
-holder.setPaint(paint);
-balls.add(holder);
-return holder;
-}
+    @Override
+    protected void onDraw(Canvas canvas) {
+      super.onDraw(canvas);
+      // 遍历balls集合中的每个ShapeHolder元素
+      for (ShapeHolder holder : balls) {
+        // 保存canvas当前坐标系统
+        canvas.save();
+        // 坐标变换:将画布坐标系统平移到shapeHolder的X,Y坐标处
+        canvas.translate(holder.getX(), holder.getY());
+        // 将holder持有的圆形绘制到canvas上
+        holder.getShapeDrawable().draw(canvas);
+        // 恢复Canvas坐标系统
+        canvas.restore();
+      }
+    }
 
-@Override
-protected void onDraw(Canvas canvas) {
-super.onDraw(canvas);
-// 遍历balls集合中的每个ShapeHolder元素
-for (ShapeHolder holder : balls) {
-// 保存canvas当前坐标系统
-canvas.save();
-// 坐标变换:将画布坐标系统平移到shapeHolder的X,Y坐标处
-canvas.translate(holder.getX(), holder.getY());
-// 将holder持有的圆形绘制到canvas上
-holder.getShapeDrawable().draw(canvas);
-// 恢复Canvas坐标系统
-canvas.restore();
-}
-}
+    @Override
+    public void onAnimationUpdate(ValueAnimator animation) {
+      // 指定重绘该界面
+      this.invalidate();
+    }
 
-@Override
-public void onAnimationUpdate(ValueAnimator animation) {
-// 指定重绘该界面
-this.invalidate();
-}
-
-}
+  }
 }
 ```
 
 * 该实例的ShapeHolder需要对width、height增加动画，因此该ShapeHolder需要增加对width、height的setter和getter方法。下面是该实例中ShapeHolder的代码。
 ```
 public class ShapeHolder {
-// X坐标
-private float x = 0;
-// Y坐标
-private float y = 0;
-// 组件宽度
-private float width = 0;
-// 组件高度
-private float height = 0;
+  // X坐标
+  private float x = 0;
+  // Y坐标
+  private float y = 0;
+  // 组件宽度
+  private float width = 0;
+  // 组件高度
+  private float height = 0;
 
-private ShapeDrawable shapeDrawable;
-// 色值
-private int color;
-private RadialGradient radialGradient;
-// 透明度
-private float alpha = 1f;
-// 画笔
-private Paint paint;
+  private ShapeDrawable shapeDrawable;
+  // 色值
+  private int color;
+  private RadialGradient radialGradient;
+  // 透明度
+  private float alpha = 1f;
+  // 画笔
+  private Paint paint;
 
-public ShapeHolder(ShapeDrawable shapeDrawable) {
-this.shapeDrawable = shapeDrawable;
-}
+  public ShapeHolder(ShapeDrawable shapeDrawable) {
+    this.shapeDrawable = shapeDrawable;
+  }
 
-public float getX() {
-return x;
-}
+  public float getX() {
+    return x;
+  }
 
-public void setX(float x) {
-this.x = x;
-}
+  public void setX(float x) {
+    this.x = x;
+  }
 
-public float getY() {
-return y;
-}
+  public float getY() {
+    return y;
+  }
 
-public void setY(float y) {
-this.y = y;
-}
+  public void setY(float y) {
+    this.y = y;
+  }
 
-public float getWidth() {
-return width;
-}
+  public float getWidth() {
+    return width;
+  }
 
-public void setWidth(float width) {
-this.width = width;
-}
+  public void setWidth(float width) {
+    this.width = width;
+  }
 
-public float getHeight() {
-return height;
-}
+  public float getHeight() {
+    return height;
+  }
 
-public void setHeight(float height) {
-this.height = height;
-}
+  public void setHeight(float height) {
+    this.height = height;
+  }
 
-public ShapeDrawable getShapeDrawable() {
-return shapeDrawable;
-}
+  public ShapeDrawable getShapeDrawable() {
+    return shapeDrawable;
+  }
 
-public void setShapeDrawable(ShapeDrawable shapeDrawable) {
-this.shapeDrawable = shapeDrawable;
-}
+  public void setShapeDrawable(ShapeDrawable shapeDrawable) {
+    this.shapeDrawable = shapeDrawable;
+  }
 
 }
 ```
 * 运行该实例，可以看到小球在底端压扁并弹起的动画，如图7.19所示。
 ![](719.png)
+
+
+
