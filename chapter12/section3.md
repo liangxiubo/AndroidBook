@@ -21,7 +21,7 @@
 ---
 当SurfaceView被创建时，系统会回调Renderer对象的onSurfaceCreated（）方法，该方法可以对OpenGL ES执行一些无须任何改变的初始化。例如如下初始化代码：
 
-![](12_4.png =550x300)
+![](12_4.png)
 
 GL10就是OpenGL ES的绘图接口，虽然这里看到的是一个GL10，但实际上它也是GLES31的实例，读者可通过gl instance of GL11判断它是否为GL11接口的实例。
 
