@@ -1,7 +1,7 @@
 # 16.4临近警告
 
 　　前面介绍LocationManager时已经提到，该API提供了一个`addProximityAlert(double latitude,double longitude,float radius,long expiration,PendingIntent intent)`方法，该方法用于添加一个临近警告。所谓临近警告的示意如图16.4所示。也就是当用户手机不断临近指定固定点时，当与该固定点的距离小于指定范围时，系统可以触发相应的处理。
-<center>![](http://i.imgur.com/38uOeR5.jpg)
+<center>![](16.4.jpg)
 
 图16.4 临近警告的示意</center>
 
@@ -73,15 +73,13 @@ public class ProximityAlertReciever extends BroadcastReceiver
 ``````
 　　该BroadcastReceiver被激发后的处理非常简单，程序通过Intent传递过来的消息判断设备是进入指定区域还是离开指定区域，并根据不同的状态提示不同的信息。运行该程序，并通过DDMS的Emulator Control面板输入广州天河的经度、纬度（113.39、23.13），即可看到如图16.5所示的提示。如果接下来在DDMS的Emulator Control面板输入其它的经度、纬度，就意味着该设备离开了该区域，于是可以看到如图16.6所示的提示。
 <center>
-![](http://i.imgur.com/nznXJQY.jpg)
+![](16.5.jpg)
 
 16.5 进入区域的提示
 
-![](http://i.imgur.com/mHSIhSq.jpg)
+![](16.6.jpg)
 
 16.6 离开区域的提示
 </center>
 # 16.5 本章小结
-　　本章主要介绍了Android提供的GPS支持，目前的绝大部分Android手机都提供了GPS硬件支持，都可以作为GPS定位系统的接收机，而开发者要做的就是从Android系统中获取GPS定位信息。学习本章的重点是掌握LocationManager、LocationProvider与LocationListener等API的功能和用法，并可以通过它们来监听、获取GPS定位信息。
-　　
-　　一旦在应用程序中获取了GPS定位信息之后，接下来就可以通过这种定位信息在Google Map上进行定位、跟踪等。
+　　本章主要介绍了Android提供的GPS支持，目前的绝大部分Android手机都提供了GPS硬件支持，都可以作为GPS定位系统的接收机，而开发者要做的就是从Android系统中获取GPS定位信息。学习本章的重点是掌握LocationManager、LocationProvider与LocationListener等API的功能和用法，并可以通过它们来监听、获取GPS定位信息。一旦在应用程序中获取了GPS定位信息之后，接下来就可以通过这种定位信息在Google Map上进行定位、跟踪等。

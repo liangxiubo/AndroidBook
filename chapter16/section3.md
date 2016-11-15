@@ -4,7 +4,7 @@
 
 ## 16.3.1 通过模拟器发送GPS信息
 　　Android模拟器本身并不能作为GPS接收机，因此无法得到GPS的定位信息，但为了方编程序员测试GPS应用，Android提供的DDMS工具可以发送模拟的GPS定位信息。启动Android模拟器之后，接下来打开DDMS的Emulator Control面板即可向Android模拟器发送GPS定位信息，如图16.2所示。
-<center>![](http://i.imgur.com/J45TESa.jpg)
+<center>![](16.2.jpg)
 
 图16.2 向模拟器发送定位信息 </center>
 
@@ -98,7 +98,7 @@ public class MainActivity extends Activity
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 ``````
 运行该程序，然后通过DDMS的Emulator Control面板来发送GPS定位信息，即可看到该程序显示如图16.3所示的输出。
-<center>![](http://i.imgur.com/2A1Gin3.jpg)
+<center>![](16.3.jpg)
 
 图16.3 实时获取定位信息 </center>
 
