@@ -62,7 +62,7 @@ private byte[] taperFacets = new byte[]{
 
 // 定义立方体的8个顶点
 
-**float[] cubeVertices = new float[] {
+float[] cubeVertices = new float[] {
 
 // 上顶面正方形的4个顶点
 
@@ -84,11 +84,11 @@ private byte[] taperFacets = new byte[]{
 
 -0.5f, 0.5f, -0.5f
 
-};**
+};
 
 // 定义立方体所需要的6个面（一共是12个三角形所需的顶点）
 
-**private byte[] cubeFacets = new byte[]{
+private byte[] cubeFacets = new byte[]{
 
 0, 1, 2,
 
@@ -114,7 +114,7 @@ private byte[] taperFacets = new byte[]{
 
 1, 5, 6
 
-};**
+};
 
 // 定义Open GL ES绘制所需要的Buffer对象
 
@@ -338,20 +338,20 @@ public class MyRenderer implements Renderer
 			0, 2, 3 // 0、2、3三个顶点组成一个面
 	};
 	// 定义立方体的8个顶点
-	**float[] cubeVertices = new float[] {**
+	float[] cubeVertices = new float[] {
 			// 上顶面正方形的4个顶点
-			**0.5f, 0.5f, 0.5f,
+			0.5f, 0.5f, 0.5f,
 			0.5f, -0.5f, 0.5f,
 			-0.5f, -0.5f, 0.5f,
-			-0.5f, 0.5f, 0.5f,**
+			-0.5f, 0.5f, 0.5f,
 			// 下底面正方形的4个顶点
-			**0.5f, 0.5f, -0.5f,
+			0.5f, 0.5f, -0.5f,
 			0.5f, -0.5f, -0.5f,
 			-0.5f, -0.5f, -0.5f,
 			-0.5f, 0.5f, -0.5f
-	};**
+	};
 	// 定义立方体所需要的6个面（一共是12个三角形所需的顶点）
-	**private byte[] cubeFacets = new byte[]{
+	private byte[] cubeFacets = new byte[]{
 			0, 1, 2,
 			0, 2, 3,
 			2, 3, 7,
@@ -364,7 +364,7 @@ public class MyRenderer implements Renderer
 			1, 4, 5,
 			1, 2, 6,
 			1, 5, 6
-	};**
+	};
 	// 定义Open GL ES绘制所需要的Buffer对象
 	FloatBuffer taperVerticesBuffer;
 	IntBuffer taperColorsBuffer;
@@ -620,14 +620,14 @@ public class MainActivity extends Activity
 	public boolean onFling(MotionEvent event1, MotionEvent event2,
 		float velocityX, float velocityY)
 	{
-	**	velocityX = velocityX > 2000 ? 2000 : velocityX;
+		velocityX = velocityX > 2000 ? 2000 : velocityX;
 		velocityX = velocityX < -2000 ? -2000 : velocityX;
 		velocityY = velocityY > 2000 ? 2000 : velocityY;
-		velocityY = velocityY < -2000 ? -2000 : velocityY;**
+		velocityY = velocityY < -2000 ? -2000 : velocityY;
 		// 根据横向上的速度计算沿Y轴旋转的角度
-		**angley += velocityX * ROTATE_FACTOR / 4000;**
+		angley += velocityX * ROTATE_FACTOR / 4000;
 		// 根据纵向上的速度计算沿X轴旋转的角度
-		**anglex += velocityY * ROTATE_FACTOR / 4000;**
+		anglex += velocityY * ROTATE_FACTOR / 4000;
 		return true;
 	}
 	@Override
