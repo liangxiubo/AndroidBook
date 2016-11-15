@@ -1,8 +1,8 @@
- \# 12.2 OpenGL和OpenGL ES简介
+\# 12.2 OpenGL和OpenGL ES简介
 
 ---
 
-\#\#\# OpengGL 
+\#\#\# OpengGL
 
 OpenGL的全称是Open Graphics Library,即开放的图形库接口，它定义了一个跨编程语 言、跨平台的编程接口的规范，它主要用于三维图形（实际上二维图形也可以）编程。OpenGL 的前身是SGI公司为其图形工作站开发的IRIS GL。IRIS GL是一个工业标准的3D图形软件接口，功能虽然强大但是移植性不好，于是SGI公司便在IRIS GL的基础上幵发了 OpenGL。
 
@@ -19,6 +19,4 @@ OpenGL ES 剔除了 OpenGL 中 glBegin\/glEnd ,四边形（GL\_QUADS \)、多边
 OpenGLES 1.0 是以 OpenGL1.3 规范为基础的，OpenGLES 1.1 是以 OpenGL1.5 规 范为基础的，它们分别支持common和common lite两种profile。lite profile只支持定点实数，而common profile既支持定点数又支持浮点数，common profile发布于2005-8，引入了对可编程管线的支持。
 
 目前Android SDK己经支持OpenGL ES 3.1，而且Android专门为 OpenGL 支持提供了 android.opengl 包，在该包提供了 GLSurfaceVievv、GLU、GLUtils 等 工具类，通过这些工具类在Android应用中使用OpenGL ES更加方便。
-
-
 
