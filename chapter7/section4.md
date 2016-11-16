@@ -34,6 +34,37 @@
 * final AnimationDrawable anim = (AnimationDrawable)imageView.getBackground();
 * anim.start();
 * anim.stop();
+* 播放过程：
+![](7.4.1.png)
+
+![](7.4.2.png)
+
+* 指定点爆炸示例
+```
+// 重写该方法，控制如果动画播放到最后一帧时，隐藏该View
+		@Override
+		protected void onDraw(Canvas canvas) // ①
+		{
+			try
+			{
+				Field field = AnimationDrawable.class
+						.getDeclaredField("mCurFrame");
+				field.setAccessible(true);
+				// 获取anim动画的当前帧
+				int curFrame = field.getInt(anim);
+				// 如果已经到了最后一帧
+				if (curFrame == anim.getNumberOfFrames() - 1)
+				{
+					// 让该View隐藏
+					setVisibility(View.INVISIBLE);
+				}
+			}
+			catch (Exception e)
+			{
+			}
+			super.onDraw(canvas);
+		}
+```
 
 
 
