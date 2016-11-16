@@ -18,6 +18,7 @@
     ...
 </animation-list>
 ```
+
 ```
 <!--使用ImageView显示动画-->
 <ImageView  
@@ -27,8 +28,14 @@
 	android:background="@anim/fat_po"
 	android:scaleType="center"
 	/>
-
 ```
+
+* 使用使用AnimationDrawable控制动画播放和停止:
+* final AnimationDrawable anim = (AnimationDrawable)imageView.getBackground();
+* anim.start();
+* anim.stop();
+
+
 
 
 
