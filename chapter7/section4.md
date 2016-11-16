@@ -18,6 +18,17 @@
     ...
 </animation-list>
 ```
+```
+<!--使用ImageView显示动画-->
+<ImageView  
+	android:id="@+id/anim"
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" 
+	android:background="@anim/fat_po"
+	android:scaleType="center"
+	/>
+
+```
 
 
 
