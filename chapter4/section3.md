@@ -19,3 +19,24 @@
 
 ###例：Activity的生命周期（codes\04\4.3\Lifecycle）
 
+![](3_2.png)
+![](3_3.png)
+![](3_4.png)
+![](3_5.png)
+![](3_6.png)
+
+##Activity的四种加载模式
+###4种Activity的启动模式：
+* standard：标准启动模式，每次激活Activity时都会创建Activity，并放入任务栈中。
+* singleTop：如果在任务的栈顶正好存在该Activity的实例， 就重用该实例，否则就会创建新的实例并放入栈顶(即使栈中已经存在该Activity实例，只要不在栈顶，都会创建实例)。
+* singleTask：如果在栈中已经有该Activity的实例，就重用该实例(会调用实例的 onNewIntent() )。重用时，会让该实例回到栈顶，因此在它上面的实例将会被移出栈。如果栈中不存在该实例，将会创建新的实例放入栈中。
+* singleInstance：在一个新栈中创建该Activity的实例，并让多个应用共享该栈中的该Activity实例。一旦该模式的Activity实例已经存在于某个栈中，任何应用再激活该Activity时都会重用该栈中的实例( 会调用实例的 onNewIntent() )。其效果相当于多个应用共享一个应用，不管谁激活该 Activity 都会进入同一个应用中。
+
+* 设置启动模式的位置在 AndroidManifest.xml 文件中 Activity 元素的 android:launchMode 属性
+
+* 相关的代码中也有一些标志可以使用，比如我们想只启用一个实例，则可以使用 Intent.FLAG_ACTIVITY_REORDER_TO_FRONT 标志，这个标志表示：如果这个activity已经启动了，就不产生新的activity，而只是把这个activity实例加到栈顶来就可以了。
+Intent intent = new Intent();
+intent.setAction("Action01");
+intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); 
+startActivity(intent);
+
