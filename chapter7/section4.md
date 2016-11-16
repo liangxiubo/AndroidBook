@@ -14,7 +14,7 @@ android:oneshot="false">
   <item android:drawable="@drawable/fat_po_f01" android:duration="60" />
   <item android:drawable="@drawable/fat_po_f02" android:duration="60" />
   <item android:drawable="@drawable/fat_po_f03" android:duration="60" />
-...
+  ...
 </animation-list>
 
 
