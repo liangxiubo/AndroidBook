@@ -1,2 +1,4 @@
 # 4.3Activity生命周期与加载模式
 
+  当Activity处于Android应用中运行时，它的活动状态由Android以Activity栈的形式管理。当前活动的Activity位于栈顶随着不同应用的运行，每个Activity都有可能从活动状态转入到非活动状态，也可以从非活动状态转入到活动状态。
+
