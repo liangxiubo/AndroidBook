@@ -11,9 +11,9 @@
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
 android:oneshot="false">
 <!-- 添加多个帧 -->
-<item android:drawable="@drawable/fat_po_f01" android:duration="60" />
-<item android:drawable="@drawable/fat_po_f02" android:duration="60" />
-<item android:drawable="@drawable/fat_po_f03" android:duration="60" />
+  <item android:drawable="@drawable/fat_po_f01" android:duration="60" />
+  <item android:drawable="@drawable/fat_po_f02" android:duration="60" />
+  <item android:drawable="@drawable/fat_po_f03" android:duration="60" />
 ...
 </animation-list>
 
