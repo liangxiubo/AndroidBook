@@ -1,2 +1,5 @@
-# 10Service与BroadCast Receiver
-
+# 第10章 Service与BroadcastReceiver
+　　Service是Android四大组件中与Activity最相似的组件，它们都代表可执行的程序，Service与Activity的区别在于：Service一直在后台运行，它没有用户界面，所以绝不会到前台来。一旦Service被启用起来之后，它就与Activity一样，它完全具有自己的生命周期。关于程序中Activity与Service的选择标准是：如果某个程序组件需要在运行时向用户呈现某种界面，或者该程序需要与用户交互，就需要使用Activity；否则就应该考虑使用Service了。  
+　　开发者开发Service的步骤与开发Activity的步骤很像，开发Service组件需要先开发一个Serveice子类，然后在AndroidManifest.xml文件中配置该Service，配置时可通过<intent-filter.../>元素指定它可以被哪些Intent启动。  
+　　Android系统本身提供了大量的Service组件，开发者可通过这些系统Service来操作Android系统本身。  
+　　本章还将向读者介绍BroadcastRceiver组件。BroadcastRceiver组件就像一个全局的事件监听器，只不过它用于监听系统发出的Broadcast。通过使用BroadcastRceiver，即可在不同应用程序之间通信。 
